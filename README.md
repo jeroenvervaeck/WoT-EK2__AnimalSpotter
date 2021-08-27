@@ -13,6 +13,9 @@ Dit zal altijd een screenshot zijn van het laatste beeld dat de camera heeft.
 ## Client ##
 Hier begeeft zich de front-end waarbij de video en data wordt opgevangen vanuit de server.
 
+Opstarten van client: 
+`cd client && yarn start`
+
 - - - -
 
 Gemaakt door Jeroen Vervaeck en Yentel De Hauwere
