@@ -5,14 +5,17 @@ import cv2
 #platform for machine learning
 import tensorflow as tf
 #python framework
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, jsonify
 
 app = Flask(__name__,template_folder='templates')
+
+# Global variables #
+isPerson = "false"
 
 ### Main ###
 @app.route('/')
 def index():
-    return render_template('templates/index.html')
+    return render_template('index.html')
 
 def gen(pipeline, interpreter, labels, input_details, output_details):
     try:
@@ -48,7 +51,13 @@ def gen(pipeline, interpreter, labels, input_details, output_details):
 
                     # Draw label
                     object_name = labels[int(classes[i])]  # Look up object name from "labels" array using class index
+                    
+                    isPerson = "false"
+                    
                     if object_name == 'person':
+                        
+                        isPerson = "true"
+                        
                         cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
                         label = '%s: %d%%' % (object_name, int(scores[i] * 100))
                         labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)  # Get font size
@@ -89,6 +98,11 @@ def video_feed():
     with open('models/labelmap.txt', 'r') as f:
         labels = [line.strip() for line in f.readlines()]
     return Response(gen(pipeline, interpreter, labels, input_details, output_details), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/api')
+def get_data():
+    while True:
+        return jsonify({'isPerson': isPerson})
 
 
 if __name__ == '__main__':
