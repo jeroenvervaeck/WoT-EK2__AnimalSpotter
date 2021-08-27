@@ -12,7 +12,7 @@ app = Flask(__name__,template_folder='templates')
 ### Main ###
 @app.route('/')
 def index():
-    return render_template('/home/pi/code/templates/index.html')
+    return render_template('templates/index.html')
 
 def gen(pipeline, interpreter, labels, input_details, output_details):
     try:
