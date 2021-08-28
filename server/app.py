@@ -6,11 +6,17 @@ import cv2
 import tensorflow as tf
 #python framework
 from flask import Flask, render_template, Response, jsonify
+from sense_hat import SenseHat
 
 app = Flask(__name__,template_folder='templates')
+sense = SenseHat()
+sense.clear()
 
-# Global variables #
-isPerson = "false"
+someData = 'this is some data'
+isPerson = 'false'
+temperature = 0
+humidity = 0
+pressure = 0
 
 ### Main ###
 @app.route('/')
@@ -20,7 +26,11 @@ def index():
 def gen(pipeline, interpreter, labels, input_details, output_details):
     try:
         while True:
-            # Wait for a coherent pair of frames: depth and color
+            # Get global variables
+            global someData
+            global isPerson
+            
+            # Wait for a color frame
             frames = pipeline.wait_for_frames()
             color_frame = frames.get_color_frame()
             if not color_frame:
@@ -39,7 +49,7 @@ def gen(pipeline, interpreter, labels, input_details, output_details):
             classes = interpreter.get_tensor(output_details[1]['index'])[0]  # Class index of detected objects
             scores = interpreter.get_tensor(output_details[2]['index'])[0]  # Confidence of detected objects
 
-            for i in range(len(scores)):
+            for i in range(len(scores)):        
                 if ((scores[i] > 0.6) and (scores[i] <= 1.0)):
                     # Get bounding box coordinates and draw box
                     # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
@@ -48,22 +58,19 @@ def gen(pipeline, interpreter, labels, input_details, output_details):
                     ymax = int(min(480, (boxes[i][2] * 480)))
                     xmax = int(min(640, (boxes[i][3] * 640)))
 
-
                     # Draw label
                     object_name = labels[int(classes[i])]  # Look up object name from "labels" array using class index
                     
-                    isPerson = "false"
-                    
+                    isPerson = 'false'
                     if object_name == 'person':
-                        
-                        isPerson = "true"
-                        
-                        cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
-                        label = '%s: %d%%' % (object_name, int(scores[i] * 100))
-                        labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)  # Get font size
-                        label_ymin = max(ymin, labelSize[1] + 10)  # Make sure not to draw label too close to top of window
-                        cv2.rectangle(img, (xmin, label_ymin - labelSize[1] - 10), (xmin + labelSize[0], label_ymin + baseLine - 10), (255, 255, 255), cv2.FILLED)  # Draw white box to put label text in
-                        cv2.putText(img, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0),2)  # Draw label text
+                        isPerson = 'true'
+                    
+                    cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
+                    label = '%s: %d%%' % (object_name, int(scores[i] * 100))
+                    labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)  # Get font size
+                    label_ymin = max(ymin, labelSize[1] + 10)  # Make sure not to draw label too close to top of window
+                    cv2.rectangle(img, (xmin, label_ymin - labelSize[1] - 10), (xmin + labelSize[0], label_ymin + baseLine - 10), (255, 255, 255), cv2.FILLED)  # Draw white box to put label text in
+                    cv2.putText(img, label, (xmin, label_ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0),2)  # Draw label text
 
             cv2.imwrite("frame.jpg", img)
             frame = open("frame" + '.jpg', 'rb').read()
@@ -72,7 +79,6 @@ def gen(pipeline, interpreter, labels, input_details, output_details):
     finally:
         # Stop streaming
         pipeline.stop()
-
 
 @app.route('/video_feed')
 def video_feed():
@@ -99,10 +105,37 @@ def video_feed():
         labels = [line.strip() for line in f.readlines()]
     return Response(gen(pipeline, interpreter, labels, input_details, output_details), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/api')
+### API ###
+@app.route('/api', methods=['GET'])
 def get_data():
-    while True:
-        return jsonify({'isPerson': isPerson})
+    global someData
+    global isPerson
+    response = jsonify({'someData': someData, 'isPerson': isPerson})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('minetype', 'application/json')
+    return response
+
+@app.route('/api/forecast', methods=['GET'])
+def get_data_forecast():
+    global temperature
+    global humidity
+    global pressure
+    
+    # Get temperature
+    temperature = sense.get_temperature_from_humidity()
+    temperature = round(temperature, 1)
+    
+    # Get humidity
+    humidity = sense.get_humidity()
+    humidity = round(humidity, 1)
+    # Get pressure
+    pressure = sense.get_pressure()
+    pressure = round(pressure, 1)
+    
+    response = jsonify({'temperature': temperature, 'humidity': humidity, 'pressure': pressure})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('minetype', 'application/json')
+    return response
 
 
 if __name__ == '__main__':
