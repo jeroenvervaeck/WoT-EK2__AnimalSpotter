@@ -1,22 +1,86 @@
-import React from 'react';
-import { Text, View, Image, SafeAreaView } from 'react-native';
-import { WebView } from 'react-native-webview';
+import React, { Component } from 'react';
+import { Text, View } from 'react-native';
 
-export default function App() {
-  return (
-    <SafeAreaView>
-      <Text>Livestream</Text>
-	 {/*  <Image style={{flex: 1, height: 380, width: 640}} source={{ uri: "https://2def-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/video_feed"}}/> */}
+import firebase from 'firebase'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './redux/reducers'
+import thunk from 'redux-thunk'
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
-	  <Image
-		source={{
-			uri: 'https://2def-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/video_feed',
-			method: 'GET',
-		}}
-		style={{ width: 640, height: 380 }}
-		/>
-
-
-    </SafeAreaView>
-  );
+// Envoirment variables in production
+const firebaseConfig = {
+	apiKey: "AIzaSyBth7LLmmuDOONVJXSIPXZc-ouvpwB3NqM",
+	authDomain: "livecam-2e38f.firebaseapp.com",
+	projectId: "livecam-2e38f",
+	storageBucket: "livecam-2e38f.appspot.com",
+	messagingSenderId: "543866354984",
+	appId: "1:543866354984:web:7f7b7d19abc8c1c79a241d",
+	measurementId: "G-DFLMGRM7LZ"
 };
+
+if(firebase.apps.length === 0) {
+	firebase.initializeApp(firebaseConfig)
+}
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import LandingScreen from './components/auth/Landing'
+import RegisterScreen from './components/auth/Register'
+import MainScreen from './components/main'
+
+const Stack = createStackNavigator();
+
+export class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			loaded: false
+		}
+	}
+	componentDidMount() {
+		firebase.auth().onAuthStateChanged((user) => {
+			if(!user){
+				this.setState({
+					loggedIn: false,
+					loaded: true,
+				})
+			} else {
+				this.setState({
+					loggedIn: true,
+					loaded: true,
+				})
+			}
+		})
+	}
+	render() {
+		const { loggedIn, loaded } = this.state;
+		if (!loaded) {
+			return (
+				<View style={{flex: 1, justifyContent: 'center'}}>
+					<Text>Loading...</Text>
+				</View>
+			)
+		}
+
+		if (!loggedIn ) {
+			return (
+				<NavigationContainer>
+					<Stack.Navigator initialRouteName='Landing'>
+						<Stack.Screen name="Landing" component={LandingScreen}/>
+						<Stack.Screen name="Register" component={RegisterScreen}/>
+					</Stack.Navigator>
+				</NavigationContainer>
+			)
+		}
+
+		return (
+			<Provider store={store}>
+				<MainScreen/>
+			</Provider>
+		)
+	}
+}
+
+export default App
