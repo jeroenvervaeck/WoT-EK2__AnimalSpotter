@@ -1,10 +1,20 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, Button } from 'react-native'
 
-export default function Account() {
+import firebase from 'firebase'
+require('firebase/firestore')
+
+const Logout = () => {
+	firebase.auth().signOut();
+}
+
+export default function Account(props) {
+
 	return (
 		<View>
-			<Text>Account</Text>
+			<Text>Welcome, {props.props.name}</Text>
+			<Button title="logout" 
+			onPress={() => Logout()}/>
 		</View>
 	)
 }

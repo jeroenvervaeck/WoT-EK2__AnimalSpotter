@@ -23,19 +23,19 @@ export class Main extends Component {
 		return (
 			<Tab.Navigator>
 				<Tab.Screen name="Live" component={LiveScreen} options={{
-					tabBarIcon: ({ color, size }) => (
+					tabBarIcon: ({ color }) => (
 						<MaterialIcons name="live-tv" color={color} size={26}/>
-					)
+					), headerShown: false
 				}}/>
 				<Tab.Screen name="History" component={HistoryScreen} options={{
-					tabBarIcon: ({ color, size }) => (
+					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name="history" color={color} size={26}/>
 					)
 				}}/>
-				<Tab.Screen name="Me" component={AccountScreen} options={{
-					tabBarIcon: ({ color, size }) => (
+				<Tab.Screen name="Me" children={() => <AccountScreen props={currentUser}/> }  options={{
+					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name="account-circle" color={color} size={26}/>
-					)
+					), headerShown: false
 				}}/>
 			</Tab.Navigator>
 		)
