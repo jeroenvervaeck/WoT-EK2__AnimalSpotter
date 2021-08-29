@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { MaterialCommunityIcons, MaterialIcons } from 'react-native-vector-icons'
 
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
 import { fetchUser } from '../redux/actions/index'
+
+import AccountScreen from './main/Account'
+import LiveScreen from './main/Live'
+import HistoryScreen from './main/History'
+
+const Tab = createBottomTabNavigator();
 
 export class Main extends Component {
 	componentDidMount() {
@@ -13,16 +20,24 @@ export class Main extends Component {
 	render() {
 		const { currentUser } = this.props;
 
-		if (currentUser == undefined) {
-			return (
-				<View></View>
-			)
-		}
-
 		return (
-			<View style={{flex: 1, justifyContent: 'center'}}>
-				<Text>{currentUser.name} is logged in</Text>
-			</View>
+			<Tab.Navigator>
+				<Tab.Screen name="Live" component={LiveScreen} options={{
+					tabBarIcon: ({ color }) => (
+						<MaterialIcons name="live-tv" color={color} size={26}/>
+					), headerShown: false
+				}}/>
+				<Tab.Screen name="History" component={HistoryScreen} options={{
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name="history" color={color} size={26}/>
+					)
+				}}/>
+				<Tab.Screen name="Account" children={() => <AccountScreen props={currentUser}/> }  options={{
+					tabBarIcon: ({ color }) => (
+						<MaterialCommunityIcons name="account-circle" color={color} size={26}/>
+					), headerShown: false
+				}}/>
+			</Tab.Navigator>
 		)
 	}
 }
