@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Button, TextInput } from 'react-native'
+import { View, Button, TextInput, StyleSheet } from 'react-native'
+import { ButtonLarge } from '../buttons'
 import firebase from 'firebase'
 
 export class Register extends Component {
@@ -32,28 +33,40 @@ export class Register extends Component {
 
 	render() {
 		return (
-			<View>
+			<View style={styles.container}>
 				<TextInput 
+					style={styles.input}
 					placeholder='name'
 					onChangeText={(name) => this.setState({ name })}
 				/>
 				<TextInput 
+					style={styles.input}
 					placeholder='email'
 					onChangeText={(email) => this.setState({ email })}
 				/>
 				<TextInput 
+					style={styles.input}
 					placeholder='password'
 					secureTextEntry={true}
 					onChangeText={(password) => this.setState({ password })}
 				/>
 
-				<Button 
-					onPress={() => this.onSignUp()}
-					title="Sign up"
-				/>
+				<ButtonLarge title="Register" onPress={() => this.onSignUp()}/>
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		paddingHorizontal: 20,
+		paddingVertical: 10,
+	},
+	input: {
+		paddingHorizontal: 4,
+		paddingVertical: 8,
+		marginVertical: 6,
+	}
+});
 
 export default Register

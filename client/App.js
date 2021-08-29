@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 
 import firebase from 'firebase'
 import { Provider } from 'react-redux'
@@ -60,7 +60,7 @@ export class App extends Component {
 		if (!loaded) {
 			return (
 				<View style={{flex: 1, justifyContent: 'center'}}>
-					<Text>Loading...</Text>
+					<ActivityIndicator color="#4B6951"/>
 				</View>
 			)
 		}
