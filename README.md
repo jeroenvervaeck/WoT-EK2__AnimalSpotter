@@ -19,10 +19,9 @@ Link naar onze server: THIS HAS TO CHANGE
 
 docs:
 
-https://github.com/IntelRealSense/librealsense/blob/master/wrappers/python/examples/opencv_viewer_example.py?fbclid=IwAR3-qCFLTdtuWJg9xy60z_cnt8_bHcFoBB_ozJBi_JG67Jttfh1m5HkJrWI
+https://dev.intelrealsense.com/docs/using-depth-camera-with-raspberry-pi-3
 
-#### frame.jpg ####
-Dit zal altijd een screenshot zijn van het laatste beeld dat de camera heeft.
+https://github.com/IntelRealSense/librealsense/blob/master/wrappers/python/examples/opencv_viewer_example.py?fbclid=IwAR3-qCFLTdtuWJg9xy60z_cnt8_bHcFoBB_ozJBi_JG67Jttfh1m5HkJrWI
 
 ## Client ##
 Hier begeeft zich de front-end waarbij de video en data wordt opgevangen vanuit de server.
