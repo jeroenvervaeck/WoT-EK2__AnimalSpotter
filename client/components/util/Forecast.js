@@ -31,9 +31,9 @@ export default function Forecast() {
 			{
 				forecast ? 
 					<View>
-						<Text>Humidity: {forecast.humidity}</Text>
-						<Text>Pressure: {forecast.pressure}</Text>
-						<Text>Temprature: {forecast.temperature}</Text>
+						<Text>Humidity: {forecast.humidity} %</Text>
+						<Text>Pressure: {forecast.pressure} Pa</Text>
+						<Text>Temprature: {forecast.temperature} °C</Text>
 					</View>
 				: null
 			}

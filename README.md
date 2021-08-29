@@ -1,5 +1,12 @@
 # Frontdoor Cam #
-Een project waarbij de veiligheid van uw huis veiliger is dan een fluogeel zebrapad in Noorwegen.
+
+### Artevelde Hogeschool | Jeroen Vervaeck & Yentel De Hauwere | 3MMP-NMD
+
+Een project waarbij je niet uitdroogd op een safari, maar rustig in je zetel de exotische dieren kan spotten
+
+[Demo](https://35f8-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/)
+
+Veel geluk met dieren spotten! ;p
 
 ## Server ##
 Hier gebeurt al de logica van het IOT device. 
@@ -15,7 +22,17 @@ Met een Ngrok pipe sturen we ons flask project op het web.
 
 `ngrok http 5000`
 
-Link naar onze server: THIS HAS TO CHANGE
+#### API endpoints ####
+
+`/video_feed`
+
+`/api`
+
+`/api/img?imgPath=`
+
+`/api/forecast`
+
+[Link naar onze server](https://35f8-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/)
 
 docs:
 
