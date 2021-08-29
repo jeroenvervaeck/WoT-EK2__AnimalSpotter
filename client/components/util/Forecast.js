@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import axios from 'axios'
+import { API_URL } from '@env'
+
 
 export default function Forecast() {
-	const dataUrl = "https://8a52-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/api/forecast"
-
-	const [ forecast, setForecast ] = useState({})
+	const [ forecast, setForecast ] = useState()
+	const forecastApi = `${API_URL}api/forecast`
 
 	useEffect(() => {
-		getDataUsingAsyncAwaitGetCall()
+		getForecast()
 	}, [])
 	
-	const getDataUsingAsyncAwaitGetCall = async () => {
+	const getForecast = async () => {
 		try {
-			const response = await axios.get(dataUrl)
-			setForecast(response)
-		} catch (error) {
-			console.log(error.message)
-			return error.message
+			const response = await axios.get(forecastApi)
+			setForecast(response.data)
+		} catch (err) {
+			console.log(err.message)
+			return err.message
 		}
 	};
 
 	useEffect(() => {
-		console.log(forecast.data)
+		console.log(forecast)
 	}, [forecast])
 
 	return (
 		<View>
-
+			{
+				forecast ? 
+					<View>
+						<Text>Humidity: {forecast.humidity}</Text>
+						<Text>Pressure: {forecast.pressure}</Text>
+						<Text>Temprature: {forecast.temperature}</Text>
+					</View>
+				: null
+			}
 		</View>
 	)
 }

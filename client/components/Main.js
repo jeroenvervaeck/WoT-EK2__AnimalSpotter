@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { MaterialCommunityIcons, MaterialIcons, Ionicons } from 'react-native-vector-icons'
+import { MaterialCommunityIcons, MaterialIcons } from 'react-native-vector-icons'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -32,7 +32,7 @@ export class Main extends Component {
 						<MaterialCommunityIcons name="history" color={color} size={26}/>
 					)
 				}}/>
-				<Tab.Screen name="Me" children={() => <AccountScreen props={currentUser}/> }  options={{
+				<Tab.Screen name="Account" children={() => <AccountScreen props={currentUser}/> }  options={{
 					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name="account-circle" color={color} size={26}/>
 					), headerShown: false
