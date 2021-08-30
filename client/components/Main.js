@@ -25,7 +25,7 @@ export class Main extends Component {
 				<Tab.Screen name="Live" component={LiveScreen} options={{
 					tabBarIcon: ({ color }) => (
 						<MaterialIcons name="live-tv" color={color} size={26}/>
-					), headerShown: false
+					), headerShown: false,
 				}}/>
 				<Tab.Screen name="History" component={HistoryScreen} options={{
 					tabBarIcon: ({ color }) => (
@@ -35,7 +35,7 @@ export class Main extends Component {
 				<Tab.Screen name="Account" children={() => <AccountScreen props={currentUser}/> }  options={{
 					tabBarIcon: ({ color }) => (
 						<MaterialCommunityIcons name="account-circle" color={color} size={26}/>
-					), headerShown: false
+					)
 				}}/>
 			</Tab.Navigator>
 		)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 
 import firebase from 'firebase'
 import { Provider } from 'react-redux'
@@ -29,7 +29,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LandingScreen from './components/auth/Landing';
 import RegisterScreen from './components/auth/Register';
 import LoginScreen from './components/auth/Login';
-import MainScreen from './components/main';
+import MainScreen from './components/Main';
 
 const Stack = createStackNavigator();
 
@@ -60,7 +60,7 @@ export class App extends Component {
 		if (!loaded) {
 			return (
 				<View style={{flex: 1, justifyContent: 'center'}}>
-					<Text>Loading...</Text>
+					<ActivityIndicator color="#4B6951"/>
 				</View>
 			)
 		}

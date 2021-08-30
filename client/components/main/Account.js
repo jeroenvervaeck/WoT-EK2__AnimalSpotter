@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, StyleSheet, Image } from 'react-native'
+import { ButtonLarge } from '../buttons'
 import Forecast from '../util/Forecast'
 
 
@@ -11,13 +12,27 @@ const Logout = () => {
 }
 
 export default function Account(props) {
-
 	return (
-		<View>
-			<Text>Welcome, {props.props.name}</Text>
+		<View style={styles.container}>
+			<Text style={styles.title}>Welcome, {props.props.name}</Text>
+			<Text style={styles.mail}>{props.props.email}</Text>
 			<Forecast />
-			<Button title="logout" 
-			onPress={() => Logout()}/>
+			<ButtonLarge title="Log out" onPress={() => Logout()}/>
 		</View>
 	)
 }
+
+const styles = StyleSheet.create({
+	container: {
+		paddingHorizontal: 20,
+		paddingVertical: 10,
+	},
+
+	title: {
+		fontSize: 20,
+		fontWeight: '700',
+	},
+	mail: {
+		paddingVertical: 4,
+	}
+});
