@@ -46,6 +46,8 @@ Hier begeeft zich de front-end waarbij de video en data wordt opgevangen vanuit 
 Opstarten van client: 
 `cd client && yarn start`
 
+[Link naar de app](https://expo.dev/@dehayez/animalspot)
+
 - - - -
 
 Gemaakt door Jeroen Vervaeck en Yentel De Hauwere
