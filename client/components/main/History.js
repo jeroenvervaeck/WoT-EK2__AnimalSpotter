@@ -5,6 +5,7 @@ import { API_URL } from '@env'
 import SimpleDateTime  from 'react-simple-timestamp-to-date';
 
 export default function History() {
+	const [ refreshing, setRefreshing ] = useState()
 	const [ detectedAnimals, setDetectedAnimals ] = useState([])
 	const [ numberPeople, setNumberPeople] = useState()
 	const [ dummy, setDummy ] = useState([
@@ -71,8 +72,12 @@ export default function History() {
 		});
 	}, [detectedAnimals])
 
+
 	return (
-		<ScrollView style={styles.container}>
+		<ScrollView style={styles.container}
+			refreshControl={
+				<RefreshControl refreshing={ refreshing }/>
+			}>
 			{ detectedAnimals.reverse().map((animal, key)=>(
 				<View  style={styles.item} key={key}>
 					<Image style={styles.image} source={{uri:`${dataUrl}/image?imgPath=${animal.imgPath}`}}/>
@@ -103,13 +108,13 @@ const styles = StyleSheet.create({
 	  resizeMode: 'cover', 
 	  width: 200,
 	  height: 100,
-	  borderTopStartRadius: 10,
-	  borderBottomStartRadius: 10,
+	  borderBottomLeftRadius: 10,
+	  borderTopLeftRadius: 10,
 	},
 	title: {
 	  textTransform: 'capitalize',
 	  fontSize: 18,
-	  fontWeight: 500,
+	  //fontWeight: 500,
 	},
 	date: {
 	  textTransform: 'uppercase',

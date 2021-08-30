@@ -27,15 +27,9 @@ export default function Forecast() {
 			{
 				forecast ? 
 					<View>
-<<<<<<< HEAD
-						<Text><Text style={{fontWeight: "bold"}}>Humidity:</Text> {forecast.humidity}</Text>
-						<Text><Text style={{fontWeight: "bold"}}>Pressure:</Text> {forecast.pressure}</Text>
-						<Text><Text style={{fontWeight: "bold"}}>Temprature:</Text> {forecast.temperature}</Text>
-=======
 						<Text>Humidity: {forecast.humidity} %</Text>
 						<Text>Pressure: {forecast.pressure} Pa</Text>
 						<Text>Temprature: {forecast.temperature} °C</Text>
->>>>>>> 887a9fa2496289cd2b75b0b1b9ce83a803a1eb74
 					</View>
 				: null
 			}
@@ -47,7 +41,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 20,
 	},
 	title: {
-		fontWeight: 700,
+		//fontWeight: 700,
 		fontSize: 16,
 		paddingBottom: 2,
 	},

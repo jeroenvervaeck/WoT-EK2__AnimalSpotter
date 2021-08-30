@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 	title: {
 		fontSize: 20,
-		fontWeight: 700,
+		//fontWeight: '700',
 	},
 	mail: {
 		paddingVertical: 4,

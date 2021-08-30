@@ -29,7 +29,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LandingScreen from './components/auth/Landing';
 import RegisterScreen from './components/auth/Register';
 import LoginScreen from './components/auth/Login';
-import MainScreen from './components/main';
+import MainScreen from './components/Main';
 
 const Stack = createStackNavigator();
 
