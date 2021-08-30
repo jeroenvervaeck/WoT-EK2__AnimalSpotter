@@ -2,9 +2,11 @@
 
 ### Artevelde Hogeschool | Jeroen Vervaeck & Yentel De Hauwere | 3MMP-NMD
 
-Een project waarbij je niet uitdroogd op een safari, maar rustig in je zetel de exotische dieren kan spotten
+Een project waarbij je niet uitdroogd op een safari, maar rustig in je zetel de exotische dieren kan spotten.
 
-[Demo](https://35f8-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/)
+Het product is gemaakt om dieren te spotten, wanneer je zelf niet in de omgeving bent. Dit kan bijvoorbeeld in een boom, aan een vijver of in een vogelhuisje. 
+
+De camera wordt bijvoorbeeld aan een vijver gezet. Wanneer een dier in zicht van de camera komt, krijgt de gebruiker een melding dat er een dier is gedetecteerd. De app neemt een screenshot van het dier en slaagt dit op. Zo kan de gebruiker later zien welke dieren wanneer actief waren.
 
 Veel geluk met dieren spotten! ;p
 
@@ -42,11 +44,12 @@ https://github.com/IntelRealSense/librealsense/blob/master/wrappers/python/examp
 
 ## Client ##
 Hier begeeft zich de front-end waarbij de video en data wordt opgevangen vanuit de server.
+Deze werd ontwikkeld adhv [React Native](https://reactnative.dev/) en [Expo](https://docs.expo.dev/)
 
 Opstarten van client: 
 `cd client && yarn start`
 
-[Link naar de app](https://expo.dev/@dehayez/animalspot)
+[Link naar de app](https://expo.dev/@despotters/animalspot)
 
 - - - -
 
