@@ -12,8 +12,6 @@ const Logout = () => {
 }
 
 export default function Account(props) {
-	console.log(props)
-
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Welcome, {props.props.name}</Text>

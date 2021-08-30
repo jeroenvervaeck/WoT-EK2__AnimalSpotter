@@ -5,11 +5,6 @@ import { API_URL } from '@env'
 
 export default function Live() {
 	const streamUri = `${API_URL}video_feed`
-	const [loaded, setLoaded] = useState(false)
-
-	useEffect(() => {
-		console.log(loaded)
-	}, [loaded])
 
 	return (
 		<View style={styles.container}>
@@ -17,7 +12,6 @@ export default function Live() {
 				streamUri ? 
 					<Image
 						style={styles.image}
-						onLoad={()=> setLoaded(!loaded), console.log('oke')}
 						source={{
 							uri: streamUri,
 							method: 'POST',
