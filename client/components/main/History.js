@@ -72,11 +72,17 @@ export default function History() {
 		});
 	}, [detectedAnimals])
 
+	const onRefresh = () => {
+		setRefreshing(true)
+		getDetectionAlerts()
+		setRefreshing(false)
+	}
+
 
 	return (
 		<ScrollView style={styles.container}
 			refreshControl={
-				<RefreshControl refreshing={ refreshing }/>
+				<RefreshControl refreshing={ refreshing } onRefresh={onRefresh}/>
 			}>
 			{ detectedAnimals.reverse().map((animal, key)=>(
 				<View  style={styles.item} key={key}>
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
 	title: {
 	  textTransform: 'capitalize',
 	  fontSize: 18,
-	  //fontWeight: 500,
+	  fontWeight: '500',
 	},
 	date: {
 	  textTransform: 'uppercase',

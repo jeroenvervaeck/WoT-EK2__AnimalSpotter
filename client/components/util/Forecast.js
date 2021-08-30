@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 20,
 	},
 	title: {
-		//fontWeight: 700,
+		fontWeight: '700',
 		fontSize: 16,
 		paddingBottom: 2,
 	},
