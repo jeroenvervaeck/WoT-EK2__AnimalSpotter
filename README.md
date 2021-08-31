@@ -34,7 +34,7 @@ Met een Ngrok pipe sturen we ons flask project op het web.
 
 `/api/forecast`
 
-[Link naar onze server](https://35f8-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/)
+[Link naar onze server](https://1906-2a02-1812-1639-b00-d2c6-fa18-e342-75a9.ngrok.io/)
 
 docs:
 
